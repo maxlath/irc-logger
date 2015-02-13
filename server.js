@@ -3,26 +3,13 @@ var net = require('net');
 var colors = require('colors');
 var fs = require('fs');
 
-///////////////////
-// CONFIGURATION //
-///////////////////
-// irc server to connect to
+
 var serverName = 'irc.snoonet.org';
-
-// port of irc server (default: 6667)
 var port = 6667;
-
-// nickname of the bot
 var user = 'zobo';
-
-// comma separated channels
 var channels = '#reddit,#reddit-live';
-
-// name of log file
 var logFile = 'log.txt';
-///////////////////
-//   STOP HERE   //
-///////////////////
+
 
 // Initial connection
 var server = net.connect(port, serverName, function() {
