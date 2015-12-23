@@ -1,5 +1,6 @@
 net = require 'net'
-colors = require 'colors'
+# force colors even if the environment detection would have disabled it
+require('colors').enabled = true
 { serverName, port, user, channels } = require 'config'
 channels = channels.join ','
 
