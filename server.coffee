@@ -1,7 +1,7 @@
 net = require 'net'
 colors = require 'colors'
-fs = require 'fs'
 { serverName, port, user, channels } = require 'config'
+channels = channels.join ','
 
 # Initial connection
 server = net.connect port, serverName, ->
