@@ -1,1 +1,4 @@
 log.txt
+node_modules
+.status
+*sublime*
