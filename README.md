@@ -28,3 +28,9 @@ You can use a tool like [aeternum](https://github.com/AvianFlu/aeternum) to star
 aeternum -o logs.txt -e errors.txt -- node server.js
 
 ```
+then you can even follow the logs live with this command:
+
+```sh
+tail -fn 500 logs.txt errors.txt
+
+```
