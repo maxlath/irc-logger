@@ -8,8 +8,9 @@
     "postinstall": "mkdir logs",
     "start": "coffee server.coffee",
     "watch": "supervisor -w server.coffee server.coffee",
-    "daemon": "aeternum -o logs/server.log -- npm run watch",
-    "build": "coffee -cb server.coffee config/*coffee"
+    "build": "coffee -cb server.coffee config/*coffee",
+    "daemon": "aeternum -o logs/inventaire.logs logs/inventaire.errors -- npm run watch",
+    "follow": "tail -fn 500 logs/inventaire.logs logs/inventaire.errors"
   },
   "repository": {
     "type": "git",
