@@ -1,12 +1,13 @@
 {
   "name": "irc-logger",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.coffee",
+  "description": "A minimalist client to keep logs of an IRC channel",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "supervisor -w server.coffee server.coffee",
-    "daemon": "aeternum -o logs/server.log -- npm run start"
+    "daemon": "aeternum -o logs/server.log -- npm run start",
+    "build": "coffee -cb server.coffee config/*coffee"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,8 @@
   "dependencies": {
     "colors": "^1.1.2",
     "config": "^1.17.1"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
   }
 }
