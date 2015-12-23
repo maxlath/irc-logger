@@ -16,7 +16,17 @@ register = ->
   sendMsg "NICK #{user}"
   sendMsg 'USER test 1 * :Hello!'
 
-now = -> (new Date().toISOString()).grey
+
+lastLoggedDay = null
+
+now = ->
+  [day, rest] = new Date().toISOString().split('T')
+
+  if day isnt lastLoggedDay
+    console.log "--------------#{day}--------------".yellow
+    lastLoggedDay = day
+
+  return rest.split('.')[0]
 
 sendLog = (chan, user_, msg) ->
   logMsg = "[#{now()}] <#{user_}> #{msg}"
