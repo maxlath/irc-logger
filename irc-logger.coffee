@@ -65,10 +65,10 @@ server.on 'data', (buf) ->
         when 'PRIVMSG'
           sendLog chan.green, sender.cyan, text
         when 'JOIN'
-          sendLog chan.green, sender.green, 'has joined.'.green
+          sendLog chan.grey, sender.grey, 'has joined.'.grey
           if singleChannel then showPostMsgHelp()
         when 'QUIT'
-          sendLog chan.red, sender.red, 'has quit.'.red
+          sendLog chan.grey, sender.grey, 'has quit.'.grey
         else
           if code[0] is '4' then console.log 'error'.red, message
 
