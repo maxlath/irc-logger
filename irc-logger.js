@@ -76,7 +76,7 @@ server.on('data', function(buf) {
           results.push(sendLog(chan.green, sender.cyan, text));
           break;
         case 'JOIN':
-          sendLog(chan.green, sender.green, 'has joined.'.green);
+          sendLog(chan.grey, sender.grey, 'has joined.'.grey);
           if (singleChannel) {
             results.push(showPostMsgHelp());
           } else {
@@ -84,7 +84,7 @@ server.on('data', function(buf) {
           }
           break;
         case 'QUIT':
-          results.push(sendLog(chan.red, sender.red, 'has quit.'.red));
+          results.push(sendLog(chan.grey, sender.grey, 'has quit.'.grey));
           break;
         default:
           if (code[0] === '4') {
