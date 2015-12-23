@@ -1,0 +1,25 @@
+{
+  "name": "irc-logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "supervisor -w server.coffee server.coffee",
+    "daemon": "aeternum -o logs/server.log -- npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxlath/irc-logger.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maxlath/irc-logger/issues"
+  },
+  "homepage": "https://github.com/maxlath/irc-logger#readme",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "config": "^1.17.1"
+  }
+}
