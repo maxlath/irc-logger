@@ -2,6 +2,7 @@ net = require 'net'
 # force colors even if the environment detection would have disabled it
 require('colors').enabled = true
 { serverName, port, user, channels } = require 'config'
+singleChannel = channels.length is 1
 channels = channels.join ','
 
 # Initial connection
@@ -15,8 +16,11 @@ register = ->
   sendMsg 'NICK ' + user
   sendMsg 'USER test 1 * :Hello!'
 
+now = -> (new Date().toISOString()).grey
+
 sendLog = (chan, user, msg) ->
-  logMsg = "[#{chan}] <#{user}> #{msg}"
+  logMsg = "[#{now()}] <#{user}> #{msg}"
+  unless singleChannel then logMsg = "[#{chan}]#{logMsg}"
   console.log logMsg
 
 sendMsg = (msg) -> server.write "#{msg}\r\n"
