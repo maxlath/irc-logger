@@ -1,6 +1,7 @@
 net = require 'net'
 # force colors even if the environment detection would have disabled it
 require('colors').enabled = true
+
 { serverName, port, user, channels } = require 'config'
 singleChannel = channels.length is 1
 channels = channels.join ','
@@ -8,18 +9,17 @@ channels = channels.join ','
 # Initial connection
 server = net.connect port, serverName, ->
   server.setEncoding 'utf8'
-  welcome = 'Connected to: ' + serverName + ' on port ' + port
-  console.log welcome.cyan
+  console.log "Connected to: #{serverName} on port #{port}".cyan
 
 # Send registration on connect
 register = ->
-  sendMsg 'NICK ' + user
+  sendMsg "NICK #{user}"
   sendMsg 'USER test 1 * :Hello!'
 
 now = -> (new Date().toISOString()).grey
 
-sendLog = (chan, user, msg) ->
-  logMsg = "[#{now()}] <#{user}> #{msg}"
+sendLog = (chan, user_, msg) ->
+  logMsg = "[#{now()}] <#{user_}> #{msg}"
   unless singleChannel then logMsg = "[#{chan}]#{logMsg}"
   console.log logMsg
 
@@ -28,8 +28,8 @@ sendMsg = (msg) -> server.write "#{msg}\r\n"
 server.on 'connect', register
 
 # Handle server events
-server.on 'data', (data) ->
-  message = data.toString()
+server.on 'data', (buf) ->
+  message = buf.toString()
   parts = message.split ' '
 
   if parts[0] is 'PING' then return sendMsg 'PONG ' + parts[1]
@@ -37,9 +37,9 @@ server.on 'data', (data) ->
   messages = message.split '\r\n'
 
   for msg in messages
-    [ user, code, chan, rest... ] = msg.split ' '
-    user = user.match(/\w+/)?.toString()
-    # removing the heading ':'
+    [ sender, code, chan, rest... ] = msg.split ' '
+    sender = sender.match(/\w+/)?.toString()
+    # removing the leading ':'
     text = rest.join(' ').slice 1
 
     if code?
@@ -53,8 +53,22 @@ server.on 'data', (data) ->
           server.write "JOIN #{channels} \r\n"
         # Message
         when 'PRIVMSG'
-          sendLog chan.green, user.cyan, text
+          sendLog chan.green, sender.cyan, text
         when 'JOIN'
-          sendLog chan.green, user.green, 'has joined.'.green
+          sendLog chan.green, sender.green, 'has joined.'.green
+          if singleChannel then showPostMsgHelp()
         when 'QUIT'
-          sendLog chan.red, user.red, 'has quit.'.red
+          sendLog chan.red, sender.red, 'has quit.'.red
+        else
+          if code[0] is '4' then console.log 'error'.red, message
+
+server.on 'error', (err)-> console.log 'err'.red, err
+
+if singleChannel
+  process.stdin.on 'data', (buf)->
+    msg = buf.toString()
+    server.write "PRIVMSG #{channels} :#{msg}\r\n"
+    sendLog null, user.green, msg
+
+showPostMsgHelp = ->
+  console.log 'Type your text and press Enter to send a message'.green
