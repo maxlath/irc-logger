@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "supervisor -w server.coffee server.coffee",
-    "daemon": "aeternum -o logs/server.log -- npm run start",
+    "start": "coffee server.coffee",
+    "watch": "supervisor -w server.coffee server.coffee",
+    "daemon": "aeternum -o logs/server.log -- npm run watch",
     "build": "coffee -cb server.coffee config/*coffee"
   },
   "repository": {
