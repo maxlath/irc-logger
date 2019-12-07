@@ -4,13 +4,15 @@
 git clone https://github.com/maxlath/irc-logger
 npm install
 ```
-then edit `config/default.js` to fit your needs
+then edit `config/local.js` to fit your needs
 
 ```javascript
+module.exports = {
   serverName: 'irc.freenode.net',
   port: 6667,
   user: 'chatbot',
-  channels: ['#inventaire']
+  channels: ['#somechannel']
+}
 ```
 
 ## Use
@@ -32,5 +34,4 @@ then you can even follow the logs live with this command:
 
 ```sh
 tail -fn 500 logs.txt errors.txt
-
 ```
