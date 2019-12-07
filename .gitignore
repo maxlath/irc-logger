@@ -2,3 +2,6 @@ log.txt
 node_modules
 .status
 *sublime*
+config/local.js
+logs/
+npm-debug.log

@@ -23,10 +23,8 @@
   },
   "homepage": "https://github.com/maxlath/irc-logger#readme",
   "dependencies": {
-    "colors": "^1.1.2",
-    "config": "^1.17.1"
+    "config": "^1.17.1",
+    "tiny-chalk": "^2.0.0"
   },
-  "devDependencies": {
-    "coffee-script": "^1.10.0"
-  }
+  "devDependencies": {}
 }
