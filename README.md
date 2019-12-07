@@ -1,3 +1,7 @@
+# irc-logger
+
+This is mostly useful as a way to learn about the basics of the IRC protocol, or as a very minimalist IRC setup.
+
 ## Installation
 
 ```sh
